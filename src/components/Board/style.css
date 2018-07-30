@@ -6,7 +6,7 @@
     border: black solid 1px;
 }
 
-.square {
+.board__square {
     width: 12.5%;
     height: 12.5%;
 }

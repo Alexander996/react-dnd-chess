@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './style.css';
+
 export default class Square extends React.Component {
     static propTypes = {
         black: PropTypes.bool
@@ -14,10 +16,9 @@ export default class Square extends React.Component {
         return (
             <div style={{
                 backgroundColor: fill,
-                color: stroke,
-                width: '100%',
-                height: '100%'
-            }}>
+                color: stroke
+            }}
+            className='square'>
                 {this.props.children}
             </div>
         )

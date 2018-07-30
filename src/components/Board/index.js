@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 import Square from "../Square";
 import Knight from "../Knight";
+import {changeKnightPosition} from '../../AC/knightPosition';
 import './style.css'
 
-export default class Board extends React.Component {
+class Board extends React.Component {
     static propTypes = {
-        knightPosition: PropTypes.arrayOf(
-            PropTypes.number.isRequired
-        ).isRequired
+        knightPosition: PropTypes.object.isRequired
     };
 
     render() {
@@ -30,17 +30,26 @@ export default class Board extends React.Component {
         const y = Math.floor(i / 8);
         const black = (x + y) % 2 === 1;
 
-        const [knightX, knightY] = this.props.knightPosition;
+        const {x: knightX, y: knightY} = this.props.knightPosition;
         const piece = (x === knightX && y === knightY) ?
             <Knight/> :
             null;
 
         return (
-            <div key={i} className='square'>
+            <div key={i} className='board__square'
+            onClick={() => this.handleClick(x, y)}>
                 <Square black={black}>
                     {piece}
                 </Square>
             </div>
         )
     }
+
+    handleClick(x, y) {
+        this.props.changeKnightPosition(x, y);
+    }
 }
+
+export default connect((state) => ({
+    knightPosition: state.knightPosition
+}), {changeKnightPosition})(Board)
