@@ -46,7 +46,18 @@ class Board extends React.Component {
     }
 
     handleClick(x, y) {
-        this.props.changeKnightPosition(x, y);
+        if (this.canMoveKnight(x, y)) {
+            this.props.changeKnightPosition(x, y);
+        }
+    }
+
+    canMoveKnight(toX, toY) {
+        const {x, y} = this.props.knightPosition;
+        const dx = toX - x;
+        const dy = toY - y;
+
+        return (Math.abs(dx) === 2 && Math.abs(dy) === 1) ||
+            (Math.abs(dx) === 1 && Math.abs(dy) === 2);
     }
 }
 
