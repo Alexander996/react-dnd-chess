@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-import Square from '../Square';
+import BoardSquare from '../BoardSquare';
 import Knight from '../Knight';
 import {changeKnightPosition} from '../../AC/knightPosition';
 import './style.css'
@@ -30,36 +30,21 @@ class Board extends React.Component {
     renderSquare(i) {
         const x = i % 8;
         const y = Math.floor(i / 8);
-        const black = (x + y) % 2 === 1;
-
-        const {x: knightX, y: knightY} = this.props.knightPosition;
-        const piece = (x === knightX && y === knightY) ?
-            <Knight/> :
-            null;
 
         return (
-            <div key={i} className='board__square'
-                 onClick={() => this.handleClick(x, y)}>
-                <Square black={black}>
-                    {piece}
-                </Square>
+            <div key={i} className='board__square'>
+                <BoardSquare x={x} y={y}>
+                    {this.renderPiece(x, y)}
+                </BoardSquare>
             </div>
         )
     }
 
-    handleClick(x, y) {
-        if (this.canMoveKnight(x, y)) {
-            this.props.changeKnightPosition(x, y);
+    renderPiece(x, y) {
+        const {x: knightX, y: knightY} = this.props.knightPosition;
+        if (x === knightX && y === knightY) {
+            return <Knight/>
         }
-    }
-
-    canMoveKnight(toX, toY) {
-        const {x, y} = this.props.knightPosition;
-        const dx = toX - x;
-        const dy = toY - y;
-
-        return (Math.abs(dx) === 2 && Math.abs(dy) === 1) ||
-            (Math.abs(dx) === 1 && Math.abs(dy) === 2);
     }
 }
 
