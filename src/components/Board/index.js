@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
-import Square from "../Square";
-import Knight from "../Knight";
+import Square from '../Square';
+import Knight from '../Knight';
 import {changeKnightPosition} from '../../AC/knightPosition';
 import './style.css'
 
@@ -37,7 +39,7 @@ class Board extends React.Component {
 
         return (
             <div key={i} className='board__square'
-            onClick={() => this.handleClick(x, y)}>
+                 onClick={() => this.handleClick(x, y)}>
                 <Square black={black}>
                     {piece}
                 </Square>
@@ -63,4 +65,4 @@ class Board extends React.Component {
 
 export default connect((state) => ({
     knightPosition: state.knightPosition
-}), {changeKnightPosition})(Board)
+}), {changeKnightPosition})(DragDropContext(HTML5Backend)(Board))
