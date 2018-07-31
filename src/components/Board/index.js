@@ -6,7 +6,6 @@ import HTML5Backend from 'react-dnd-html5-backend';
 
 import BoardSquare from '../BoardSquare';
 import Knight from '../Knight';
-import {changeKnightPosition} from '../../AC/knightPosition';
 import './style.css'
 
 class Board extends React.Component {
@@ -50,4 +49,4 @@ class Board extends React.Component {
 
 export default connect((state) => ({
     knightPosition: state.knightPosition
-}), {changeKnightPosition})(DragDropContext(HTML5Backend)(Board))
+}))(DragDropContext(HTML5Backend)(Board))

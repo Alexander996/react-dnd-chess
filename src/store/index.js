@@ -1,10 +1,7 @@
-import {createStore, applyMiddleware} from 'redux';
+import {createStore} from 'redux';
 
 import reducer from '../reducers';
-import changeKnightPosition from '../middlewares/changeKnightPosition';
 
-const enhancer = applyMiddleware(changeKnightPosition);
-
-const store = createStore(reducer, {}, enhancer);
+const store = createStore(reducer);
 
 export default store;
